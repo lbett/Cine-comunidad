@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="plugin.video.cinecomunidad" name="Cine Comunidad" version="0.1.0" provider-name="Cine Comunidad">
+  <requires>
+    <import addon="xbmc.python" version="3.0.0"/>
+  </requires>
+  <extension point="xbmc.python.pluginsource" library="addon.py">
+    <provides>video</provides>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    <summary lang="es">Buscador de cine de dominio público y archivos comunitarios.</summary>
+    <description lang="es">Explora fichas de películas de Internet Archive. Este complemento muestra metadatos y enlaces a las páginas originales; no aloja contenido ni garantiza la licencia de cada elemento.</description>
+    <platform>all</platform>
+    <license>MIT</license>
+    <language>es</language>
+  </extension>
+</addon>
