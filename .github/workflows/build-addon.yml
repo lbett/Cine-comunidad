@@ -1,0 +1,55 @@
+name: Build Kodi install ZIP
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "plugin.video.cinecomunidad/**"
+      - ".github/workflows/build-addon.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Validate addon metadata and Python syntax
+        run: |
+          python - <<'PY'
+          import ast
+          import xml.etree.ElementTree as ET
+          from pathlib import Path
+          addon = Path("plugin.video.cinecomunidad")
+          root = ET.parse(addon / "addon.xml").getroot()
+          assert root.attrib.get("id") == "plugin.video.cinecomunidad"
+          ast.parse((addon / "addon.py").read_text(encoding="utf-8"))
+          print("Addon XML and Python syntax validated.")
+          PY
+
+      - name: Create installable ZIP
+        run: |
+          mkdir -p dist
+          cd plugin.video.cinecomunidad
+          zip -r ../dist/plugin.video.cinecomunidad-0.1.0.zip addon.xml addon.py README.md
+          cd ..
+          sha256sum dist/plugin.video.cinecomunidad-0.1.0.zip > dist/SHA256SUMS.txt
+
+      - name: Publish ZIP as a GitHub release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v0.1.0
+          name: Cine Comunidad 0.1.0
+          body: |
+            First experimental Kodi build.
+            Searches Internet Archive metadata and displays links to original item pages.
+            It does not host or directly play films. Verify rights and availability per item.
+          files: |
+            dist/plugin.video.cinecomunidad-0.1.0.zip
+            dist/SHA256SUMS.txt
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
