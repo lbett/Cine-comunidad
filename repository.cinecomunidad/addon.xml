@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="repository.cinecomunidad" name="Cine Comunidad Repository" version="0.1.0" provider-name="Cine Comunidad">
+  <extension point="xbmc.addon.repository" name="Cine Comunidad">
+    <dir>
+      <info compressed="false">https://lbett.github.io/Cine-comunidad/addons.xml</info>
+      <checksum>https://lbett.github.io/Cine-comunidad/addons.xml.md5</checksum>
+      <datadir zip="true">https://lbett.github.io/Cine-comunidad/</datadir>
+    </dir>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    <summary lang="es">Repositorio oficial de Cine Comunidad.</summary>
+    <description lang="es">Distribuye el complemento Cine Comunidad para Kodi.</description>
+    <platform>all</platform>
+    <license>MIT</license>
+    <language>es</language>
+  </extension>
+</addon>
